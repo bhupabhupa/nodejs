@@ -4,10 +4,10 @@ var _ = require('underscore');
 var app = express();
 var PORT = process.env.PORT || 3030;
 
-//var db         = require('./db.js');
-//var mongoose   = require('mongoose');
+var db         = require('./db.js');
+var mongoose   = require('mongoose');
 
-//var ExpenseDB = db.ExpenseDB;
+var ExpenseDB = db.ExpenseDB;
 
 app.use(bodyParser.json());
 
@@ -29,7 +29,7 @@ app.post('/expense/add/:expense', function(req, res){
     const parseval = JSON.parse(body);
     const expenseJSON = parseval.expense;
 
-    /*var expenseObj = new ExpenseDB();
+    var expenseObj = new ExpenseDB();
     expenseObj.expenseDate = expenseJSON.date;
     expenseObj.category = expenseJSON.category;
     expenseObj.expenseType = expenseJSON.type;
@@ -42,23 +42,23 @@ app.post('/expense/add/:expense', function(req, res){
             console.log(err);
             return res.status(400).send({ message: 'Unable to save the user' });
         }
-    });*/
+    });
     //console.log('Done');
     return res.status(200).end('Success');
 });
 
 //GET /todos
 app.get('/expense/all', function(req, res){
-    /*ExpenseDB.find({}, null, function(err, data) {
+    ExpenseDB.find({}, null, function(err, data) {
         if(err){
-            //console.log(err);
+            console.log(err);
             return res.status(400).send({ message: 'Error while getting expense list' });
         } else {
             console.log(data);
             res.send(data);
         }
-    });*/
-    res.json(todos);
+    });
+    //res.json(todos);
 });
 
 app.listen(PORT, function(){
