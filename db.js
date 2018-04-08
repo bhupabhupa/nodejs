@@ -11,9 +11,6 @@ var expenseSchema = new mongoose.Schema({
 
 var ExpenseDB = db.model('expense', expenseSchema);
 
-//module.exports = db.model('expense', expenseSchema);
-
-
 module.exports = {
     ExpenseDB: ExpenseDB
 };

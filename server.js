@@ -27,15 +27,13 @@ app.post('/expense/add/:expense', function(req, res){
     console.log("Add called");
     const body = JSON.stringify(req.params);
     const parseval = JSON.parse(body);
-    const expenseJSON = parseval.expense;
+    const expenseJSON = JSON.parse(parseval.expense);
 
     var expenseObj = new ExpenseDB();
     expenseObj.expenseDate = expenseJSON.date;
     expenseObj.category = expenseJSON.category;
     expenseObj.expenseType = expenseJSON.type;
     expenseObj.amount = expenseJSON.amount;
-
-    console.log(expenseObj);
 
     expenseObj.save(function(err) {
         if(err) {
@@ -60,6 +58,21 @@ app.get('/expense/all', function(req, res){
     });
     //res.json(todos);
 });
+
+app.get('/expense/perday', function(req, res){
+    ExpenseDB.aggregate([{$group : {_id : { month: { $month: "$expenseDate" }, day: { $dayOfMonth:"$expenseDate" }, year: { $year: "$expenseDate" } },totalAmount: { $sum: "$amount" }}}], function(err, data) {
+        if(err){
+            console.log(err);
+            return res.status(400).send({ message: 'Error while getting expense list' });
+        } else {
+            console.log(data);
+            res.send(data);
+        }
+    });
+    //res.json(todos);
+});
+
+
 
 app.listen(PORT, function(){
     console.log('Express listing on port ' + PORT + '!');
