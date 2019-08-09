@@ -12,7 +12,7 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/', function(req, res){
-    console.log("Get called");
+    console.log("Get called : ", process.NODE_ENV);
     res.json({'message':'Todo api list'});
 });
 
