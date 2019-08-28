@@ -18,7 +18,7 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/', function(req, res){
-    console.log("Get called");
+    console.log("Get called changed");
     res.json({'message':'Todo api list'});
 });
 
